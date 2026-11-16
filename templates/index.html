@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리 학교 급식 알리미</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f5f2;
+            text-align: center;
+            padding: 30px 15px;
+        }
+        .container {
+            background: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+        }
+        h1 { color: #286747; }
+        input, button {
+            padding: 12px;
+            margin: 8px;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+        button {
+            background-color: #286747;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .meal {
+            background: #edf5ef;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>우리 학교 급식 알리미</h1>
+        <p>조회하고 싶은 날짜를 선택하세요.</p>
+
+        <form method="POST">
+            <input type="date" name="date" value="{{ date }}" required>
+            <button type="submit">급식 조회</button>
+        </form>
+
+        {% if meals %}
+            <h2>{{ date }} 급식 메뉴</h2>
+            {% for meal, menu in meals.items() %}
+                <div class="meal">
+                    <h3>{{ meal }}</h3>
+                    <p>{{ menu }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
