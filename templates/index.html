@@ -1,16 +1,27 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 한글이 정상적으로 표시되도록 문자 인코딩을 설정한다. -->
     <meta charset="UTF-8">
+
+    <!-- 휴대폰과 컴퓨터 화면 크기에 맞게 웹페이지를 조정한다. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 브라우저 탭에 표시할 웹사이트 이름이다. -->
     <title>우리 학교 급식 알리미</title>
+
+    <!-- 웹사이트의 디자인을 설정한다. -->
     <style>
+        /* 웹페이지 전체의 글꼴, 배경색, 정렬을 설정한다. */
         body {
             font-family: Arial, sans-serif;
             background-color: #f1f5f2;
             text-align: center;
             padding: 30px 15px;
         }
+
+        /* 급식 알리미의 내용을 담는 상자이다. */
         .container {
             background: white;
             max-width: 500px;
@@ -18,19 +29,29 @@
             padding: 25px;
             border-radius: 15px;
         }
-        h1 { color: #286747; }
+
+        /* 제목의 글자 색상을 설정한다. */
+        h1 {
+            color: #286747;
+        }
+
+        /* 날짜 입력창과 버튼의 크기 및 모양을 설정한다. */
         input, button {
             padding: 12px;
             margin: 8px;
             border-radius: 7px;
             font-size: 15px;
         }
+
+        /* 급식 조회 버튼의 디자인을 설정한다. */
         button {
             background-color: #286747;
             color: white;
             border: none;
             cursor: pointer;
         }
+
+        /* 아침, 점심, 저녁 급식 메뉴의 배경과 간격을 설정한다. */
         .meal {
             background: #edf5ef;
             padding: 12px;
@@ -39,29 +60,54 @@
         }
     </style>
 </head>
+
 <body>
+    <!-- 급식 알리미의 전체 내용을 담는 영역이다. -->
     <div class="container">
+
+        <!-- 웹사이트의 메인 제목을 표시한다. -->
         <h1>우리 학교 급식 알리미</h1>
+
+        <!-- 사용자에게 날짜 선택 방법을 안내한다. -->
         <p>조회하고 싶은 날짜를 선택하세요.</p>
 
+        <!-- 선택한 날짜를 서버로 전송하는 입력 양식이다. -->
         <form method="POST">
+
+            <!-- 사용자가 조회할 날짜를 선택하는 입력창이다. -->
             <input type="date" name="date" value="{{ date }}" required>
+
+            <!-- 버튼을 누르면 선택한 날짜의 급식을 조회한다. -->
             <button type="submit">급식 조회</button>
         </form>
 
+        <!-- 급식 정보가 존재할 때만 아래 내용을 표시한다. -->
         {% if meals %}
+
+            <!-- 조회한 날짜를 제목으로 표시한다. -->
             <h2>{{ date }} 급식 메뉴</h2>
+
+            <!-- 아침, 점심, 저녁 정보를 하나씩 반복해서 표시한다. -->
             {% for meal, menu in meals.items() %}
+
+                <!-- 한 끼의 급식 정보를 표시하는 영역이다. -->
                 <div class="meal">
+
+                    <!-- 아침, 점심, 저녁 중 해당하는 식사 이름이다. -->
                     <h3>{{ meal }}</h3>
+
+                    <!-- 해당 식사의 메뉴 내용을 표시한다. -->
                     <p>{{ menu }}</p>
+
                 </div>
             {% endfor %}
         {% endif %}
 
+        <!-- 급식 정보가 없을 때 안내 메시지를 표시한다. -->
         {% if message %}
             <p>{{ message }}</p>
         {% endif %}
+
     </div>
 </body>
 </html>
